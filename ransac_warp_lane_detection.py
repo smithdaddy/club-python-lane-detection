@@ -41,7 +41,7 @@ def frame_process(image, color_floor, color_ceiling):
     # Convert image to HSV colorspace
     hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 
-    mask = cv2.inRange(hsv, color_floor, color_ceiling)
+    mask = cv2.inRange(hsv, color_floor, color_ceiling) # mask that focuses on specific color and erases the noisy backgroud(black and white image)
     mask = cv2.dilate(mask, None, iterations=1)
     mask = cv2.erode(mask, None, iterations=1)
     
@@ -60,9 +60,9 @@ def frame_process(image, color_floor, color_ceiling):
 ##    # Combine the horizontal and vertical edge-gradient data
 #    sobelCombined = cv2.bitwise_or(sobelX, sobelY)
 
-    # Threshold the canny-edged image and have the function return the result
+    # Threshold the canny-edged image and have the function return the result #makes gray either black or white
     (T, thresh) = cv2.threshold(auto, 100, 255, cv2.THRESH_BINARY)
-    return thresh
+    return thresh #returns the image
 
 # Define perspective transform function
 def perspective_warp(img, width, height):
@@ -180,7 +180,7 @@ while True:
         
     # Call the frame processing function
     edged = frame_process(resized, color_floor = (60, 60, 60), color_ceiling = (90, 255, 255))
-
+# green is between 60 and 90 for HSV
  # Initialize arrays for storing potential points
     warp_y_inds = []
     warp_x_inds = []
